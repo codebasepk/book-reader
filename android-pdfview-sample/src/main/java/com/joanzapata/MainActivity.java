@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
 
     private PDFView mPdfView;
     private final int RESULT_CODE = 100;
-    private static boolean isFileChooserShown = false;
     private static File currentFile;
     private static boolean isFileLoaded = false;
 
@@ -62,12 +61,10 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
     @Override
     protected void onResume() {
         super.onResume();
-        if (Helpers.getPreviousSavedFile().equals("") && !isFileChooserShown) {
-            showFileChooser();
-            isFileChooserShown = true;
-            isFileLoaded = false;
-        } else {
+        if (!AppGlobals.listFilesOpen) {
             loadPdfFile(Helpers.getPreviousSavedFile(), true);
+        } else {
+            loadPdfFile(AppGlobals.fileName, true);
         }
     }
 
@@ -121,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
             Uri uri = data.getData();
             String path = uri.getPath();
             loadPdfFile(path, false);
-            Helpers.savePreviousOpenedFile(path);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
