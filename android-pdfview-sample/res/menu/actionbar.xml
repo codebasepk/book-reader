@@ -19,11 +19,18 @@
     along with Android-pdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/about"
-        android:icon="@drawable/ic_about"
-        android:title="About"
-        android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/pages"
+        android:title="@string/pages"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/open_file_chooser"
+        android:icon="@drawable/explorer_icon"
+        android:title="@string/choose_file"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
 </menu>

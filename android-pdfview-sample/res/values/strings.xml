@@ -19,5 +19,10 @@
 
 -->
 <resources>
-    <string name="app_name">android-pdfview</string>
+    <string name="app_name">Book Reader</string>
+    <string name="pages">pages</string>
+    <string name="choose_file">chooser file</string>
+    <color name="colorPrimary">#3F51B5</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="colorAccent">#FF4081</color>
 </resources>
