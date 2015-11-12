@@ -56,6 +56,7 @@ public class DecodeServiceBase implements DecodeService
 
     public void open(Uri fileUri)
     {
+
         document = codecContext.openDocument(PathFromUri.retrieve(contentResolver, fileUri));
     }
 

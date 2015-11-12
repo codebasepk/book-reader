@@ -41,14 +41,12 @@ import com.joanzapata.pdfview.listener.OnLoadCompleteListener;
 import com.joanzapata.pdfview.listener.OnPageChangeListener;
 import com.joanzapata.pdfview.sample.R;
 
-import java.io.File;
-
 public class MainActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
         OnErrorOccurredListener, OnDrawListener {
 
     private PDFView mPdfView;
     private final int RESULT_CODE = 100;
-    private static File currentFile;
+    private static String currentFile;
     private static boolean isFileLoaded = false;
 
     @Override
@@ -69,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
     }
 
     private void loadPdfFile(String path, boolean assests) {
-        File file = new File(path);
-        currentFile = file;
+        System.out.println(path);
+        currentFile = path;
         if (assests) {
             mPdfView.fromAsset("sample.pdf")
                     .defaultPage(1)
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
                     .load();
 
         } else {
-            mPdfView.fromFile(file)
+            mPdfView.fromAsset(path)
                     .defaultPage(1)
                     .showMinimap(true)
                     .enableSwipe(true)
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
     protected void onPause() {
         super.onPause();
         if (isFileLoaded) {
-            Helpers.saveCurrentPage(currentFile.getName(), mPdfView.getCurrentPage());
+            Helpers.saveCurrentPage(currentFile, mPdfView.getCurrentPage());
         }
     }
 
@@ -107,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
     protected void onDestroy() {
         super.onDestroy();
         if (isFileLoaded) {
-            Helpers.saveCurrentPage(currentFile.getName(), mPdfView.getCurrentPage());
+            Helpers.saveCurrentPage(currentFile, mPdfView.getCurrentPage());
         }
     }
 
@@ -139,7 +137,8 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.open_file_chooser)   {
-            showFileChooser();
+//            showFileChooser();
+            startActivity(new Intent(getApplicationContext(), PdfsActivity.class));
             return true;
         } else if (id == R.id.pages)  {
             showAlertDialog(MainActivity.this);
@@ -176,9 +175,9 @@ public class MainActivity extends AppCompatActivity implements OnPageChangeListe
 
     @Override
     public void loadComplete(int nbPages) {
-        System.out.println(Helpers.getLastLoadedPage(currentFile.getName()));
-        if (Helpers.getLastLoadedPage(currentFile.getName()) != 0) {
-            mPdfView.jumpTo(Helpers.getLastLoadedPage(currentFile.getName())+1);
+        System.out.println(Helpers.getLastLoadedPage(currentFile));
+        if (Helpers.getLastLoadedPage(currentFile) != 0) {
+            mPdfView.jumpTo(Helpers.getLastLoadedPage(currentFile)+1);
         }
 
     }
