@@ -23,8 +23,7 @@ public class PdfDocument implements CodecDocument
         return getPageCount(docHandle);
     }
 
-    static PdfDocument openDocument(String fname, String pwd)
-    {
+    static PdfDocument openDocument(String fname, String pwd) {
         return new PdfDocument(open(FITZMEMORY, fname, pwd));
     }
 

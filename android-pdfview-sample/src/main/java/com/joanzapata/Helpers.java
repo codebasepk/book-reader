@@ -1,6 +1,8 @@
 package com.joanzapata;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 public class Helpers {
@@ -9,6 +11,7 @@ public class Helpers {
         return PreferenceManager.getDefaultSharedPreferences(AppGlobals.getContext());
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static void savePreviousOpenedFile(String value) {
         SharedPreferences sharedPreferences = getPreferenceManager();
         sharedPreferences.edit().putString(AppGlobals.LAST_FILE_KEY, value).apply();
@@ -19,6 +22,7 @@ public class Helpers {
         return sharedPreferences.getString(AppGlobals.LAST_FILE_KEY, "");
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static void saveCurrentPage(String key, int value) {
         SharedPreferences sharedPreferences = getPreferenceManager();
         sharedPreferences.edit().putInt(key, value).apply();
@@ -29,4 +33,6 @@ public class Helpers {
         SharedPreferences sharedPreferences = getPreferenceManager();
         return sharedPreferences.getInt(key, 0);
     }
+
+
 }
